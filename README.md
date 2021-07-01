@@ -203,42 +203,7 @@ $ echo "select viewschema,viewname,varchar(text) as text from syscat.views fetch
 ```
 
 ## use plugin for sql shortcut
-below simple python is used to create a YAML file to be used as a plugin,
-when the sql input starting with "\", it's treated as command.
-ignore wrong sql result below for db size, I just copied them from random internet search.
-
-```python
-import yaml
-d=dict()
-d["mysql"]=dict()
-d["mysql"]["user"]="select user,host from mysql.user"
-d["mysql"]["db"]=dict()
-d["mysql"]["tablespace"]=dict()
-d["mysql"]["perf"]=dict()
-d["mysql"]["db"]["usage"]="""
-SELECT s.schema_name,
-CONCAT(IFNULL(ROUND((SUM(t.data_length)+SUM(t.index_length))/1024/1024,2),0.00),"Mb") total_size,
-CONCAT(IFNULL(ROUND(((SUM(t.data_length)+SUM(t.index_length))-SUM(t.data_free))/1024/1024,2),0.00),"Mb") data_used,
-CONCAT(IFNULL(ROUND(SUM(data_free)/1024/1024,2),0.00),"Mb") data_free,
-IFNULL(ROUND((((SUM(t.data_length)+SUM(t.index_length))-SUM(t.data_free))/((SUM(t.data_length)+SUM(t.index_length)))*100),2),0) pct_used
-FROM INFORMATION_SCHEMA.SCHEMATA s, INFORMATION_SCHEMA.TABLES t
-WHERE s.schema_name = t.table_schema
-GROUP BY s.schema_name
-ORDER BY total_size DESC
-"""
-d["mysql"]["tablespace"]["usage"]="""
-SELECT s.schema_name, table_name,
-CONCAT(IFNULL(ROUND((SUM(t.data_length)+SUM(t.index_length))/1024/1024,2),0.00),"Mb") total_size,
-CONCAT(IFNULL(ROUND(((SUM(t.data_length)+SUM(t.index_length))-SUM(t.data_free))/1024/1024,2),0.00),"Mb") data_used,
-CONCAT(IFNULL(ROUND(SUM(data_free)/1024/1024,2),0.00),"Mb") data_free,
-IFNULL(ROUND((((SUM(t.data_length)+SUM(t.index_length))-SUM(t.data_free))/((SUM(t.data_length)+SUM(t.index_length)))*100),2),0) pct_used
-FROM INFORMATION_SCHEMA.SCHEMATA s, INFORMATION_SCHEMA.TABLES t
-WHERE s.schema_name = t.table_schema
-GROUP BY s.schema_name, table_name
-ORDER BY total_size DESC
-"""
-print(yaml.dump(d))
-```
+plugin is YAML file including queries.  I made a random example from some SQL from internet as below.
 
 generated YAML file,
 ```yaml
