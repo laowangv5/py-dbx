@@ -7,6 +7,10 @@
 
  you run `dbx` or `python -mdbx` other than `sretools-dbx` in the past. 
  
+## Installation
+`pip install py-dbx`
+
+run with `python -mdbx` or just `dbx`
 
 
 ## dbx (sretools-dbx) 
