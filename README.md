@@ -7,6 +7,15 @@
 
  you run `dbx` or `python -mdbx` other than `sretools-dbx` in the past. 
  
+ - [Installation](#installation)
+ - [args](#dbx-sretools-dbx)
+ - [work with db2/postgresql/mysql and more](#tests-with-db2-postgresql-and-mysql)
+ - [export data](#export-to-jsonyaml-or-html)
+ - [plugin](#use-plugin-for-sql-shortcut)
+
+-----
+ 
+ 
 ## Installation
 `pip install py-dbx`
 
