@@ -16,7 +16,7 @@ import yaml
 
 # from multiprocessing import Process as Task
 from threading import Thread as Task
-from sretools import SimpleTable
+from xtable import xtable
 
 
 class DBX:
@@ -129,12 +129,12 @@ def dbx_main():
     ppid = os.getppid()
     found = False
     p = ppid
-    for d in ["~/.cache", "~/.cache/sretools"]:
+    for d in ["~/.cache", "~/.cache/walkerever"]:
         fulld = os.path.expanduser(d)
         if not os.path.exists(fulld):
             os.mkdir(fulld)
     while p not in [0, 1]:
-        if os.path.exists(os.path.expanduser("~/.cache/sretools/.dbx.{}".format(p))):
+        if os.path.exists(os.path.expanduser("~/.cache/walkerever/.dbx.{}".format(p))):
             found = True
             break
         else:
@@ -152,7 +152,7 @@ def dbx_main():
         CMDDT = dict()
 
     if not found or args.connect:
-        addr = os.path.expanduser("~/.cache/sretools/.dbx.{}".format(ppid))
+        addr = os.path.expanduser("~/.cache/walkerever/.dbx.{}".format(ppid))
         if os.path.exists(addr):
             if args.debug:
                 print("# ready to remove old server process")
@@ -168,7 +168,7 @@ def dbx_main():
                 os.unlink(fdummy)
     else:
         # client only
-        addr = os.path.expanduser("~/.cache/sretools/.dbx.{}".format(p))
+        addr = os.path.expanduser("~/.cache/walkerever/.dbx.{}".format(p))
 
     def get_sql_command(sqlorpath):
         global CMDDT
@@ -234,19 +234,19 @@ def dbx_main():
                 and "data" in obj
             ):
                 if args.format == "json":
-                    t = SimpleTable(header=obj["header"], data=obj["data"])
+                    t = xtable(header=obj["header"], data=obj["data"])
                     print(t.get_json(), end="")
                 elif args.format == "yaml":
-                    t = SimpleTable(header=obj["header"], data=obj["data"])
+                    t = xtable(header=obj["header"], data=obj["data"])
                     print(t.get_yaml(), end="")
                 elif args.format == "csv":
-                    t = SimpleTable(header=obj["header"], data=obj["data"])
+                    t = xtable(header=obj["header"], data=obj["data"])
                     print(t.get_csv(), end="")
                 elif args.format == "html":
-                    t = SimpleTable(header=obj["header"], data=obj["data"])
+                    t = xtable(header=obj["header"], data=obj["data"])
                     print(t.get_html(), end="")
                 else:
-                    t = SimpleTable(
+                    t = xtable(
                         header=obj["header"], data=obj["data"], maxwidth=args.maxwidth
                     )
                     if args.pivot:
