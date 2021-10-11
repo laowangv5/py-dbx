@@ -97,14 +97,7 @@ def dbx_main():
         help="force connect as server",
     )
     parser.add_argument("-Q", "--sql", dest="sql", help="sql statement to run")
-    parser.add_argument(
-        "-w",
-        "--maxwidth",
-        dest="maxwidth",
-        type=int,
-        default=-1,
-        help="maxwidth of column",
-    )
+    parser.add_argument( "-w", "--widthhint", dest="widthhint", default=None, help="hint for col width. '0:20,2:30,...'")
     parser.add_argument(
         "-F", "--outformat", dest="format", default="", help="json,yaml,csv,html"
     )
@@ -247,7 +240,7 @@ def dbx_main():
                     print(t.get_html(), end="")
                 else:
                     t = xtable(
-                        header=obj["header"], data=obj["data"], maxwidth=args.maxwidth
+                        header=obj["header"], data=obj["data"], widthhint=args.widthhint
                     )
                     if args.pivot:
                         print(t.repr_pivot(), end="")
