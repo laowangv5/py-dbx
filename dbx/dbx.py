@@ -228,22 +228,22 @@ def dbx_main():
             ):
                 if args.format == "json":
                     t = xtable(header=obj["header"], data=obj["data"])
-                    print(t.get_json(), end="")
+                    print(t.json(), end="")
                 elif args.format == "yaml":
                     t = xtable(header=obj["header"], data=obj["data"])
-                    print(t.get_yaml(), end="")
+                    print(t.yaml(), end="")
                 elif args.format == "csv":
                     t = xtable(header=obj["header"], data=obj["data"])
-                    print(t.get_csv(), end="")
+                    print(t.csv(), end="")
                 elif args.format == "html":
                     t = xtable(header=obj["header"], data=obj["data"])
-                    print(t.get_html(), end="")
+                    print(t.html(), end="")
                 else:
                     t = xtable(
                         header=obj["header"], data=obj["data"], widthhint=args.widthhint
                     )
                     if args.pivot:
-                        print(t.repr_pivot(), end="")
+                        print(t.pivot(), end="")
                     else:
                         print(t, end="")
             rw = obj.get("rows_impacted", 0)
