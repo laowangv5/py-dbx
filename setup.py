@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="py-dbx",
-    version="1.0.3",
+    version="1.0.4",
     description="make jdbc calls in command line",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -21,7 +21,7 @@ setup(
     classifiers=["License :: OSI Approved :: Apache Software License"],
     packages=find_packages(),
     include_package_data=True,
-    install_requires=[ "psutil", "pyyaml","jaydebeapi"],
+    install_requires=[ "psutil", "pyyaml","jaydebeapi","xtable"],
     keywords=[ "jdbc","dbx" ],
     entry_points={ "console_scripts": 
         [ 
